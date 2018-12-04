@@ -1,0 +1,226 @@
+<html>
+<head>
+
+    <meta charset="utf-8">
+
+    <title>All Rooms</title>
+
+
+    <style type="text/css">
+
+
+        body {
+            color: #000000;
+            #background-color: #2cb5e8;
+            background: linear-gradient(135deg, #ffffff 0%, #10efef 15%, #088fce 55%, #b9daea 98%, #ffffff 100%);
+            margin: 0px;
+            font-size: 14px;
+            height: 100%;
+        }
+
+        .navbar {
+            background-color: black;
+            overflow: hidden;
+        }
+
+        .navbar a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .navbar a:hover {
+            background-color: #ff9933;
+            color: black;
+        }
+
+        .navbar a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        table {
+            width: 30%;
+            height: auto;
+            text-align: center;
+            margin-top: 5%;
+            border: 2px solid white;
+        }
+
+        .th {
+            color: red;
+            font-face: bold;
+            border: 2px solid white;
+            background-color: white;
+
+        }
+
+        .td {
+            border: 2px solid white;
+            background-color: white;
+
+        }
+
+        .button {
+            color: white;
+            background-color: #ff9933;
+            width: 100%;
+            padding: 2px;
+        }
+
+        .button:hover {
+            color: #ff9933;
+            background-color: white
+        }
+
+        .outer_button{
+            color: white;
+            background-color: #ff9933;
+            width: 30%;
+            padding: 2px;
+            margin-left:35%;
+            margin-right:35%;
+        }
+
+         .outer_button:hover {
+            color: #ff9933;
+            background-color: white
+        }
+
+        .submitbutton {
+            background: none;
+            border: none;
+            text-decoration: underline;
+
+        }
+
+        .submitbutton:hover, .sortbutton:hover {
+            cursor: pointer;
+        }
+
+        .sort {
+            float: right;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .sortbutton {
+            background: none;
+            border: none;
+            text-decoration: none;
+            color: red;
+            font-weight: bold;
+        }
+
+        img {
+            max-width: 20px;
+            max-height: 20px;
+        }
+
+        @keyframes error {
+            0% {
+                transform: translate(20px);
+            }
+            5% {
+                transform: translate(-20px);
+            }
+            10% {
+                transform: translate(20px);
+            }
+            15% {
+                transform: translate(-20px);
+            }
+            20% {
+                transform: translate(20px);
+            }
+            25% {
+                transform: translate(-20px);
+            }
+            30% {
+                transform: translate(20px);
+            }
+            35% {
+                transform: translate(-20px);
+            }
+            40% {
+                transform: translate(20px);
+            }
+            45% {
+                transform: translate(-20px);
+            }
+            50% {
+                transform: translate(20px);
+            }
+            100% {
+                transform: translate(0px);
+            }
+        }
+
+        .error {
+            color: red;
+            animation: error 1s 1;
+        }
+
+
+    </style>
+
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <a href="/displayrooms">HOME</a>
+    <a href="/addroom">Add Room</a>
+    <a href={{logout}}> LOGOUT</a>
+</div>
+<h3 align="left" style="margin-left: 15px">Current Time(UTC): {{current_date_string}}</h3>
+<h3 align="right" style="margin-right:15px">expired bookings auto-deleted: {{deletedbookings}}</h3>
+<table align="center">
+
+    <tr>
+        <th class="th">Room
+
+        <th class="th">Delete Room</th>
+    </tr>
+
+    {%for x in allrooms %}
+
+    <tr>
+        <td class="td">
+            <form method="post" action="/displayeach" id="myform">
+                <input type="submit" name="name" value="{{x.key.id()}}" class="submitbutton"/>
+            </form>
+
+        </td>
+
+        <td class="td">
+            <form method="post" action="/displayrooms">
+                <input type="submit" class="button" value="delete room" name="button"/>
+                <input type="hidden" value="{{x.key.id()}}" name="room_id"/>
+            </form>
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+
+<h2 class="error" align="center">{{error}}</h2>
+<form method="post" action="/filterbydate">
+    <input type="submit" name="button" value="Filter By Date" class="outer_button" />
+</form>
+<h3 style="margin-top:20px" align="center">Click on a Room Name to Add/Delete Bookings !!</h3>
+<h5 style="margin-bottom:5%" align="center">*Note: if changes do not reflect immediately, please refresh the page or click <a href="/displayrooms">here</a></h5>
+<h5 style="margin-top:17%" align="center">This website is best viewed in GOOGLE CHROME. Kindly use GOOGLE CHROME for BEST RESULTS</h5>
+
+</body>
+
+</html>
